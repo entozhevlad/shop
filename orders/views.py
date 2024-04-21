@@ -25,20 +25,6 @@ def order_create(request):
             # Очистка корзины
             cart.clear()
             order_created.delay(order.id)
-            message="Ваш заказ успешно сформирован.\n"\
-            f"Номер {order.id}."\
-            f"Адрес {order.address}."\
-            f"Индекс {order.postal_code}."\
-            f"Город {order.city}."\
-            f"На вашу почту {order.email} отправлено письмо с информацией о заказе."
-            if 'email' in form.cleaned_data:
-                send_mail(
-                    'Заказ сформирован',
-                    message,
-                    'tpushopvz@outlook.com',
-                    [form.cleaned_data['email']],
-                    fail_silently=False,
-                )
             return render(request, 'orders/created.html',
                           {'order': order})
     else:

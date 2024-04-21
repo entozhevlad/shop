@@ -1,20 +1,21 @@
-from myshop.celery import app
+from celery import shared_task
 from django.core.mail import send_mail
 from .models import Order
+from django.conf import settings
 
 
-@app.task
+@shared_task
 def order_created(order_id):
     """
     Задача для отправки уведомления по электронной почте при успешном создании заказа.
     """
     order = Order.objects.get(id=order_id)
-    subject = 'Order nr. {}'.format(order_id)
-    message = 'Dear {},\n\nYou have successfully placed an order.\
-                Your order id is {}.'.format(order.first_name,
-                                             order.id)
+    subject = f'Order nr. {order.id}'
+    message = f'Dear {order.first_name},\n\n'\
+              f'You have successfully placed an order.'\
+                f'Your order id is {order_id}.'
     mail_sent = send_mail(subject,
                           message,
-                          'admin@myshop.com',
-                          [order.email])
+                          settings.EMAIL_HOST_USER,
+                          [order.email], fail_silently=False)
     return mail_sent
