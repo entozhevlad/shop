@@ -19,3 +19,4 @@ def order_created(order_id):
                           settings.EMAIL_HOST_USER,
                           [order.email], fail_silently=False)
     return mail_sent
+

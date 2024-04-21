@@ -1,22 +1,17 @@
-from django.shortcuts import render
-
-# Create your views here.
-from django.shortcuts import render
 from .models import OrderItem
 from .forms import OrderCreateForm
 from cart.cart import Cart
 from .tasks import order_created
-from django.core.mail import send_mail
-# Create your views here.
-
+from django.urls import reverse
+from django.shortcuts import render, redirect
 
 def order_create(request):
     cart = Cart(request)
     if request.method == 'POST':
         form = OrderCreateForm(request.POST)
         if form.is_valid():
-            order = form.save(commit=False)  # Сохранение объекта заказа без записи в базу данных
-            order.save()  # Теперь объект заказа сохранен и имеет идентификатор
+            order = form.save(commit=False)
+            order.save()
             for item in cart:
                 OrderItem.objects.create(order=order,
                                          product=item['product'],
@@ -25,8 +20,8 @@ def order_create(request):
             # Очистка корзины
             cart.clear()
             order_created.delay(order.id)
-            return render(request, 'orders/created.html',
-                          {'order': order})
+            request.session['order_id'] = order.id
+            return redirect(reverse('payment:process'))
     else:
         form = OrderCreateForm()
     return render(request, 'orders/create.html',

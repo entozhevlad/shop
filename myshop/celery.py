@@ -9,4 +9,5 @@ app = Celery('myshop')
 app.config_from_object('django.conf:settings', namespace='CELERY')
 app.autodiscover_tasks()
 
-#celery -A my_project_name worker --pool=solo -l info
+#celery -A myshop worker --pool=solo -l info
+#celery -A myshop flower
