@@ -9,8 +9,10 @@ def order_create(request):
     cart = Cart(request)
     if request.method == 'POST':
         form = OrderCreateForm(request.POST)
+        print(form.data)
         if form.is_valid():
             order = form.save(commit=False)
+            order.delivery_method = form.cleaned_data['delivery_method']  # Устанавливаем значение delivery_method из формы
             order.save()
             for item in cart:
                 OrderItem.objects.create(order=order,
@@ -26,3 +28,4 @@ def order_create(request):
         form = OrderCreateForm()
     return render(request, 'orders/create.html',
                   {'cart': cart, 'form': form})
+

@@ -13,6 +13,14 @@ class Order(models.Model):
     updated = models.DateTimeField(auto_now=True)
     paid = models.BooleanField(default=False)
 
+    DELIVERY_CHOICES = ( ('mail', 'Почтой'), ('courier', 'Курьером'), ('pickup', 'Самовывоз'))
+    delivery_prices = {
+        'mail': 1,
+        'courier': 2,
+        'pickup': 3,
+    }
+    delivery_method = models.CharField(max_length=10, choices=DELIVERY_CHOICES, default='pickup')
+
     class Meta:
         ordering = ('-created',)
         verbose_name = 'Order'
@@ -23,7 +31,10 @@ class Order(models.Model):
         return 'Order {}'.format(self.id)
 
     def get_total_cost(self):
-        return sum(item.get_cost() for item in self.items.all())
+        delivery_price = Order.delivery_prices.get(self.delivery_method, 0)
+        items_cost = sum(item.get_cost() for item in self.items.all())
+        total_cost = items_cost + delivery_price
+        return total_cost
 
 
 class OrderItem(models.Model):
