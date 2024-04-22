@@ -47,7 +47,8 @@ INSTALLED_APPS = [
     'shop',
     'orders',
     'myshop',
-    'cart'
+    'cart',
+    'payments'
 
 ]
 
@@ -145,3 +146,18 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_REDIRECT_URL = '/'
 CART_SESSION_ID = 'cart'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST='smtp-mail.outlook.com'
+EMAIL_HOST_USER=env('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD=env('EMAIL_HOST_PASSWORD')
+EMAIL_PORT=587
+EMAIL_USE_TLS=True
+
+# Настроечные параметры Stripe
+STRIPE_PUBLISHABLE_KEY = env('STRIPE_PUBLISHABLE_KEY') # Публичный ключ
+STRIPE_SECRET_KEY = env('STRIPE_SECRET_KEY') # Секретный ключ
+STRIPE_API_VERSION = '2022-08-01'
+STRIPE_WEBHOOK_SECRET = env('STRIPE_WEBHOOK_SECRET')
+
+# YOUKASSA_SECRET_KEY = env('YOUKASSA_SECRET_KEY')
+# YOUKASS_SHOP_ID = env('YOUKASS_SHOP_ID')

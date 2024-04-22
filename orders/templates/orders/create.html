@@ -16,9 +16,22 @@
         </ul>
         <p>Total: ${{ cart.get_total_price }}</p>
     </div>
+{#    <form action="." method="post" class="order-form">#}
+{#        {{ form.as_p }}#}
+{#        <p><input type="submit" value="Place order"></p>#}
+{#        {% csrf_token %}#}
+{#    </form>#}
     <form action="." method="post" class="order-form">
-        {{ form.as_p }}
-        <p><input type="submit" value="Place order"></p>
-        {% csrf_token %}
-    </form>
+    {{ form.first_name }}
+    {{ form.last_name }}
+    {{ form.email }}
+    {{ form.address }}
+    {{ form.postal_code }}
+    {{ form.city }}
+    {{ form.delivery_method }}  <!-- Поле для выбора способа доставки -->
+    <p><input type="submit" value="Place order"></p>
+    {% csrf_token %}
+</form>
+
+
 {% endblock %}
