@@ -20,4 +20,21 @@
     </form>
 {{ product.description|linebreaks }}
 </div>
+    <div class="reviews">
+
+    <h3>Оставить отзыв:</h3>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Отправить отзыв</button>
+    </form>
+    <h2>Отзывы:</h2>
+    {% for review in reviews %}
+        <p><strong>{{ review.user.username }}</strong> - {{ review.rating }}/5</p>
+        <p>{{ review.comment }}</p>
+        <hr>
+    {% empty %}
+        <p>Пока нет отзывов.</p>
+    {% endfor %}
+</div>
 {% endblock %}
