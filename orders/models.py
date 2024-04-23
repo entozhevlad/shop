@@ -1,8 +1,10 @@
 from django.db import models
 from shop.models import Product
+from django.contrib.auth.models import User
 
 
 class Order(models.Model):
+    user = models.ForeignKey(User, related_name='orders', on_delete=models.CASCADE, null=True, default=None)
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
     email = models.EmailField()
@@ -15,9 +17,9 @@ class Order(models.Model):
 
     DELIVERY_CHOICES = ( ('mail', 'Почтой'), ('courier', 'Курьером'), ('pickup', 'Самовывоз'))
     delivery_prices = {
-        'mail': 1,
-        'courier': 2,
-        'pickup': 3,
+        'mail': 5,
+        'courier': 10,
+        'pickup': 0,
     }
     delivery_method = models.CharField(max_length=10, choices=DELIVERY_CHOICES, default='pickup')
 

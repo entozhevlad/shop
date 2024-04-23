@@ -328,3 +328,40 @@ form div.field {
     color:#666;
     border-radius:4px;
 }
+.profile {
+    margin-right: 0;
+    padding-right: 0;
+    clear: right;
+}
+
+.profile-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.profile-info {
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 20px;
+}
+
+.profile-info h2 {
+    margin-bottom: 10px;
+}
+
+.profile-orders {
+    margin-top: 20px;
+}
+
+.profile-orders h3 {
+    margin-bottom: 10px;
+}
+
+.profile-orders ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.profile-orders li {
+    margin-bottom: 5px;
+}

@@ -1,0 +1,20 @@
+{% extends 'shop/base.html' %}
+{% load static %}
+{% block content %}
+<div class="profile-container">
+    <div class="profile-info">
+        <h2>Личный кабинет</h2>
+        <p>Имя: {{ current_user.first_name }}</p>
+        <p>Фамилия: {{ current_user.last_name }}</p>
+        <p>Email: {{ current_user.email }}</p>
+    </div>
+    <div class="profile-orders">
+        <h3>Мои заказы</h3>
+        <ul>
+            {% for order in orders %}
+                <li>Заказ #{{ order.id }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endblock %}

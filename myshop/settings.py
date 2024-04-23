@@ -48,7 +48,8 @@ INSTALLED_APPS = [
     'orders',
     'myshop',
     'cart',
-    'payments'
+    'payments',
+    'user_profile',
 
 ]
 
@@ -120,32 +121,23 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
-# Internationalization
-# https://docs.djangoproject.com/en/5.0/topics/i18n/
-
 LANGUAGE_CODE = 'en-us'
-
 TIME_ZONE = 'UTC'
-
 USE_I18N = True
-
 USE_TZ = True
 
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_DIR = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [STATIC_DIR]
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
-# Default primary key field type
-# https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
+
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_REDIRECT_URL = '/'
 CART_SESSION_ID = 'cart'
+
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST='smtp-mail.outlook.com'
 EMAIL_HOST_USER=env('EMAIL_HOST_USER')
@@ -153,11 +145,8 @@ EMAIL_HOST_PASSWORD=env('EMAIL_HOST_PASSWORD')
 EMAIL_PORT=587
 EMAIL_USE_TLS=True
 
-# Настроечные параметры Stripe
-STRIPE_PUBLISHABLE_KEY = env('STRIPE_PUBLISHABLE_KEY') # Публичный ключ
-STRIPE_SECRET_KEY = env('STRIPE_SECRET_KEY') # Секретный ключ
+STRIPE_PUBLISHABLE_KEY = env('STRIPE_PUBLISHABLE_KEY')
+STRIPE_SECRET_KEY = env('STRIPE_SECRET_KEY')
 STRIPE_API_VERSION = '2022-08-01'
 STRIPE_WEBHOOK_SECRET = env('STRIPE_WEBHOOK_SECRET')
 
-# YOUKASSA_SECRET_KEY = env('YOUKASSA_SECRET_KEY')
-# YOUKASS_SHOP_ID = env('YOUKASS_SHOP_ID')

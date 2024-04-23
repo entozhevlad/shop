@@ -9,8 +9,10 @@
 <body>
 <div id="header">
 <a href="/" class="logo">Мой магазин</a>
+
 </div>
 <div id="subheader">
+    <a href="{% url 'profile:profile' %}" class="profile">Профиль</a>
     <div class="cart">
         {% with total_items=cart|length %}
         {% if cart|length > 0 %}
