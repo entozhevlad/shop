@@ -7,7 +7,9 @@
         <p>Имя: {{ current_user.first_name }}</p>
         <p>Фамилия: {{ current_user.last_name }}</p>
         <p>Email: {{ current_user.email }}</p>
+        <a href="{% url 'user_profile:edit' %}" class="btn btn-primary">Редактировать профиль</a>
     </div>
+
     <div class="profile-orders">
         <h3>Мои заказы</h3>
         <ul>

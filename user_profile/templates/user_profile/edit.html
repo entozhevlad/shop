@@ -1,0 +1,12 @@
+{% extends 'shop/base.html' %}
+{% load static %}
+{% block content %}
+    <div class="profile-info">
+        <h2>Личный кабинет</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Сохранить изменения</button>
+        </form>
+    </div>
+{% endblock %}
