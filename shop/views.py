@@ -20,17 +20,22 @@ def product_list(request, category_slug=None):
 
 def product_detail(request, id, slug):
     product = get_object_or_404(Product, id=id, slug=slug, available=True)
-    reviews = product.reviews.all()
+    user_review = product.reviews.filter(user=request.user).exists()
+
     if request.method == 'POST':
-        form = ReviewForm(request.POST)
-        if form.is_valid():
-            review = form.save(commit=False)
-            review.user = request.user
-            review.product = product
-            review.save()
-            return redirect('shop:product_detail', id=product.id, slug=product.slug)
+        if not user_review:
+            form = ReviewForm(request.POST)
+            if form.is_valid():
+                review = form.save(commit=False)
+                review.user = request.user
+                review.product = product
+                review.save()
+                return redirect('shop:product_detail', id=product.id, slug=product.slug)
+        else:
+            form = ReviewForm(instance=user_review)
     else:
         form = ReviewForm()
+    reviews = product.reviews.all()
     cart_product_form = CartAddProductForm()
-    return render(request, 'shop/product/detail.html', {'product': product, 'cart_product_form': cart_product_form, 'form': form, 'reviews': reviews}, )
+    return render(request, 'shop/product/detail.html', {'product': product, 'cart_product_form': cart_product_form, 'form': form, 'reviews': reviews, 'user_review':user_review}, )
 

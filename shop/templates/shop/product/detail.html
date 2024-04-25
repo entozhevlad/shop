@@ -21,13 +21,16 @@
 {{ product.description|linebreaks }}
 </div>
     <div class="reviews">
-
-    <h3>Оставить отзыв:</h3>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Отправить отзыв</button>
-    </form>
+    {% if user_review %}
+        <p>Вы уже оставили отзыв на этот товар</p>
+    {% else %}
+        <h3>Оставить отзыв:</h3>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Отправить отзыв</button>
+        </form>
+    {% endif %}
     <h2>Отзывы:</h2>
     {% for review in reviews %}
         <p><strong>{{ review.user.username }}</strong> - {{ review.rating }}/5</p>

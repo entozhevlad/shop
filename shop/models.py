@@ -28,7 +28,7 @@ class Product(models.Model):
     slug = models.CharField(max_length=150, db_index=True, unique=True, default=uuid.uuid4, verbose_name='Ссылка')
     image = models.ImageField(upload_to=' shop/static/shop/img/product/%Y/%m/%d', blank=True)
     description = models.TextField(max_length=1000, blank=True, verbose_name='Описание')
-    price = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Цeнa')
+    price = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Цeнa', default=0.00)
     available = models.BooleanField(default=True, verbose_name='Наличие')
     created = models.DateTimeField(default=timezone.now, verbose_name='Добавлен')
     uploaded = models.DateTimeField(auto_now=True, verbose_name='Изменен')
